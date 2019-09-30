@@ -1,0 +1,192 @@
+/**
+ * @author raymondeleko
+ */
+
+/** 
+ * Phonebook program to store name, number and notes.
+ * Codes are entered in the format (Command name)
+ * Use command e  for enter,
+ * Use command f for find
+ * Use command l for List 
+ * Use command q for quit
+ */
+
+	import java.io.BufferedReader;
+	import java.io.File;
+	import java.io.FileReader;
+	import java.io.PrintStream;
+	import java.util.Scanner;
+	
+	
+    public class Phonebook 
+    {
+		public static Entry[] entryList = new Entry[200];
+		private static int num_entries=0;
+
+	
+		public static void main(String[] args) 
+		{
+			try {
+				readPhoneBook("Entries.txt");
+			} 
+			catch (Exception e) {
+				
+		}
+			System.out.println("type command with name, e to enter, f to find ");
+			System.out.println("type command l to list and type command q to quit ");
+			while(true) 
+			{
+				Scanner input = new Scanner(System.in);
+				
+				
+				System.out.print("Enter a Command: ");
+				String[] command = input.nextLine().split(" ");
+				if(command.length > 2) {
+					for(int i=2; i<command.length; i++) 
+					{
+						command[1] += " " + command[i];
+					}
+					
+			}
+			
+				if(command[0].equals("e")) 
+				{
+					if(command.length < 2) 
+					{
+						System.out.println("** No name was specified, ");
+					}
+					else if(command[1].length() > 50) 
+					{
+						System.out.println("** name exceeds lentgh 8\n");
+					}
+					else 
+					{
+						Entry e = new Entry();
+						e.name = command[1];
+						System.out.print("Enter number: ");
+						e.number = input.nextLine();
+						System.out.print("Enter notes: ");
+						e.notes = input.nextLine();
+						System.out.println("");
+						entryList[num_entries] = e;
+						num_entries++;
+					}
+				}
+				
+				else if(command[0].equals("f")) 
+				{
+					boolean found = false;
+					if(command.length < 2) 
+					{
+						System.out.println("** No name was specified\n");
+					}
+					else 
+					{
+						for(int j=0; j<num_entries; j++) 
+						{
+							String name = entryList[j].name;
+							if(name.equalsIgnoreCase(command[1])) 
+							{
+								found = true;
+								System.out.println("-- " + entryList[j].name);
+								System.out.println("-- " + entryList[j].number);
+								System.out.println("-- " + entryList[j].notes);
+							}
+						}
+						if(found == false)
+							System.out.println("** No entry with name " + command[1]);
+							System.out.println();
+					}
+					
+				}
+				
+				else if(command[0].equals("l")) 
+				{
+					if(entryList[0] == null)
+						System.out.println("");
+					for(int j=0; j<num_entries; j++) 
+					{
+						System.out.println("-- " + entryList[j].name);
+						System.out.println("-- " + entryList[j].number);
+						System.out.println("-- " + entryList[j].notes);
+						System.out.println("");
+					}
+				}
+				
+				else if(command[0].equals("q")) 
+				{
+					try 
+					{
+						File file = new File("Entries.txt");
+						file.createNewFile();
+						storePhoneBook("Entries.txt");
+					} 
+					catch (Exception e) 
+					{
+						System.out.println("** Failed to store phonebook");
+					}
+					break;
+				}
+				
+				else 
+				{ System.out.println("** No such command " + command[0]); }
+				
+			}
+		}
+		
+
+		public static void readPhoneBook(String FileName) throws Exception 
+		{
+			BufferedReader r = new BufferedReader(new FileReader(FileName));
+			
+			String out = r.readLine();
+			while(out != null) 
+			{
+				String[] data = out.split("\t");
+				Entry e = new Entry();
+				e.name = data[0];
+				e.number = data[1];
+				e.notes = data[2];
+				entryList[num_entries] = e;
+				num_entries++;
+				out = r.readLine();
+			}
+			r.close();
+			
+		}
+		
+		public static void storePhoneBook(String FileName) throws Exception 
+		{
+			PrintStream P = new PrintStream(FileName);
+			
+			for(int i=0; i < num_entries; i++) 
+			{
+				P.println(entryList[i].name + "\t" + entryList[i].number + "\t" + entryList[i].notes);
+			}
+			
+			P.close();
+			System.out.println("Phonebook stored.");
+		}
+		
+		public static void listAllEntries() 
+		{
+			if(entryList[0] == null)
+				System.out.println("");
+			for(int j=0; j<num_entries; j++) 
+			{
+				System.out.println("-- " + entryList[j].name);
+				System.out.println("-- " + entryList[j].number);
+				System.out.println("-- " + entryList[j].notes);
+				System.out.println("");
+			}
+		}
+		
+	}
+
+
+//Another class created for Entry
+
+public class Entry 
+{
+	public String name, number, notes;
+}
