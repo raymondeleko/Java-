@@ -1,0 +1,58 @@
+/*
+ * scissor-rock- paper game. 
+ * 
+ */
+import java.util.Scanner;
+
+/**
+ * @author raymondeleko
+ *
+ */
+public class ScissorRockPaper 
+{
+
+		public static void main(String[] args) 
+		{
+			
+			 Scanner input = new Scanner(System.in);
+			 
+			 int number, guess;
+			 String name;
+			 
+			 // Obtain the random   
+			 number = (int) (Math.random() * 3);
+			
+			 //Prompt the player to enter name and welcome statement
+			 
+			 System.out.print("Please Enter your name ");
+			 name = input.nextLine();
+			 
+			//State welcome statement
+			 
+			 System.out.print(name + " you are welcome to :  Scissor, Rock, Paper."
+			                  + "\nEnter 0 for Scissor, 1 for Rock or 2 for Paper: ");
+			 guess = input.nextInt();
+			        
+			 // Check the guess and state result
+			 
+			  if (number == 0 && guess == 0)
+			     System.out.println("The computer is Scissors. You are Scissors too. It is a draw.");
+			  if (number == 0 && guess == 1)
+			     System.out.println("The computer is Scissors. You are Rock. You won.");
+			  if (number == 0 && guess == 2)
+			     System.out.println("The computer is Scissors. You are Paper. You lose.");
+			  if (number == 1 && guess == 0)
+			     System.out.println("The computer is Rock. You are Scissors. You lose.");
+			  if (number == 1 && guess == 1)
+			     System.out.println("The computer is Rock. You are Rock too. It is a draw.");
+			  if (number == 1 && guess == 2)
+			     System.out.println("The computer is Rock. You are Paper. You won.");
+			  if (number == 2 && guess == 0)
+			     System.out.println("The computer is Paper. You are Scissors. You won.");
+			  if (number == 2 && guess == 1)
+			     System.out.println("The computer is Paper. You are Rock. You lose.");
+			  if (number == 2 && guess == 2)
+			     System.out.println("The computer is Paper. You are Paper too. It is a draw.");
+		}
+			
+}
