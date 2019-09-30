@@ -4,11 +4,8 @@
 
 /** 
  * Phonebook program to store name, number and notes.
- * Codes are entered in the format (Command name)
- * Use command e  for enter,
- * Use command f for find
- * Use command l for List 
- * Use command q for quit
+ * Use command e to enter, Use command f to find
+ * Use command l for List, Use command q for quit
  */
 
 	import java.io.BufferedReader;
