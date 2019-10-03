@@ -23,12 +23,6 @@
 	
 		public static void main(String[] args) 
 		{
-			try {
-				readPhoneBook("Entries.txt");
-			} 
-			catch (Exception e) {
-				
-		}
 			System.out.println("type command with name, e to enter, f to find ");
 			System.out.println("type command l to list and type command q to quit ");
 			while(true) 
